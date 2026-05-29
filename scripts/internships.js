@@ -262,6 +262,12 @@ function handleFormSubmit(e) {
   const name = nameInput ? nameInput.value.trim() : '';
   const submitBtn = document.getElementById('modal-submit-btn');
 
+  const sName = document.getElementById('success-name');
+  const sRole = document.getElementById('success-role');
+  const sCompany = document.getElementById('success-company');
+  const fBox = document.getElementById('modal-form-container');
+  const sBox = document.getElementById('modal-success-container');
+
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
@@ -280,12 +286,12 @@ function handleFormSubmit(e) {
   }
 
   setTimeout(() => {
-    if (successName) successName.textContent = name;
-    if (successRole) successRole.textContent = activeRole;
-    if (successCompany) successCompany.textContent = activeCompany;
+    if (sName) sName.textContent = name;
+    if (sRole) sRole.textContent = activeRole;
+    if (sCompany) sCompany.textContent = activeCompany;
 
-    if (formBox) formBox.classList.add('hidden');
-    if (successBox) successBox.classList.remove('hidden');
+    if (fBox) fBox.classList.add('hidden');
+    if (sBox) sBox.classList.remove('hidden');
 
     setTimeout(() => {
       closeApplyModal();
