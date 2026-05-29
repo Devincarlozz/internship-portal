@@ -1,0 +1,10 @@
+# Antigravity AI assistant data
+.gemini/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Open Internships</title>
+  <meta name="description"
+    content="Search and apply to open internship opportunities in tech, design, and development.">
+  <meta name="color-scheme" content="light dark">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <script>
+
+    let savedTheme = 'light';
+    try {
+      savedTheme = localStorage.getItem('theme') || 'light';
+    } catch (e) { }
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
+
+    <link rel="stylesheet" href="styles/internships.css">
+</head>
+
+<body>
+
+  <div class="background-container" aria-hidden="true">
+
+    <div class="orb-scroll-wrapper" id="scroll-blue">
+      <div class="orb orb-blue"></div>
+    </div>
+
+    <div class="orb-scroll-wrapper" id="scroll-orange">
+      <div class="orb orb-orange"></div>
+    </div>
+
+    <div class="orb-scroll-wrapper" id="scroll-ring-1">
+      <div class="orb orb-ring-1">
+        <svg viewBox="0 0 200 200" width="100%" height="100%">
+          <defs>
+            <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#BF953F" />
+              <stop offset="25%" stop-color="#FCF6BA" />
+              <stop offset="50%" stop-color="#B38728" />
+              <stop offset="75%" stop-color="#FBF5B7" />
+              <stop offset="100%" stop-color="#AA771C" />
+            </linearGradient>
+            <filter id="ring-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#000000" flood-opacity="0.45" />
+            </filter>
+          </defs>
+          <ellipse cx="100" cy="100" rx="82" ry="24" stroke="url(#gold-gradient)" stroke-width="8" fill="none"
+            filter="url(#ring-glow)" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="orb-scroll-wrapper" id="scroll-ring-2">
+      <div class="orb orb-ring-2">
+        <svg viewBox="0 0 200 200" width="100%" height="100%">
+          <ellipse cx="100" cy="100" rx="64" ry="17" stroke="url(#gold-gradient)" stroke-width="5.5" fill="none"
+            filter="url(#ring-glow)" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-orb"></span>
+        AURA
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="internships.html" class="active">Open Internships</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle dark/light theme">
+          <div class="theme-toggle-circle">
+            <svg class="theme-icon sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg class="theme-icon moon-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </div>
+          <span class="theme-text" id="theme-text-label">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="internships-header-section">
+    <div class="hero-content">
+      <h1 class="hero-title" id="hero-title">Open Internships</h1>
+      <p class="hero-subtitle">
+        Explore opportunities crafted for the next generation of builders.
+      </p>
+    </div>
+  </section>
+
+  <section class="listings-section" id="listings-section">
+
+    <div class="filter-container scroll-reveal">
+      <div class="search-wrapper">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="text" id="search-input" placeholder="Search by role, company, or skills...">
+      </div>
+
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-category="all">All</button>
+        <button class="filter-tab" data-category="tech">Tech</button>
+        <button class="filter-tab" data-category="design">Design</button>
+        <button class="filter-tab" data-category="dev">Dev</button>
+      </div>
+
+      <div class="sort-wrapper">
+        <label for="sort-select">Sort By</label>
+        <select id="sort-select" aria-label="Sort internships list">
+          <option value="default">Default</option>
+          <option value="deadline">Deadline</option>
+          <option value="active">Active Postings</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="listings-grid">
+
+      <div class="internship-card" style="--card-accent: var(--accent-color); --card-accent-rgb: var(--accent-rgb);"
+        data-id="1" data-deadline="2026-06-30" data-active="14">
+        <div class="card-badge badge-accent">Tech</div>
+
+        <div class="card-main-content">
+          <div class="card-header">
+            <div class="company-logo logo-accent" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="2.2" fill="currentColor" />
+                <circle cx="5" cy="18" r="2.2" fill="currentColor" />
+                <circle cx="19" cy="18" r="2.2" fill="currentColor" />
+                <line x1="12" y1="7.2" x2="6.5" y2="15.8" />
+                <line x1="12" y1="7.2" x2="17.5" y2="15.8" />
+                <line x1="7.2" y1="18" x2="16.8" y2="18" />
+              </svg>
+            </div>
+            <div class="company-info">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="company-name">Nexora AI</span>
+                <div class="live-indicator">
+                  <span class="live-dot"></span>
+                  <span class="live-text">14 active</span>
+                </div>
+              </div>
+              <h3 class="role-title">Frontend Developer Intern</h3>
+              <p class="role-description">Build responsive, interactive user interfaces for our core AI dashboard products using React and CSS.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Eligibility</span>
+                <span class="info-value">CS/IT students, 2nd or 3rd year</span>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Deadline</span>
+                <span class="info-value">June 30, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="apply-btn btn-accent" onclick="openApplyModal('Nexora AI', 'Frontend Developer Intern', '1')">
+              Apply Now
+            </button>
+          </div>
+        </div>
+
+        <div class="card-details-expanded">
+          <div class="details-grid">
+            <div class="details-col">
+              <h4>Key Responsibilities</h4>
+              <ul class="details-list">
+                <li>Build responsive dashboards using HTML5, CSS3, and React.js.</li>
+                <li>Optimize components for maximum speed and cross-browser compatibility.</li>
+                <li>Collaborate with designers to translate high-fidelity Figma mockups to code.</li>
+              </ul>
+            </div>
+            <div class="details-col">
+              <h4>Required Skills</h4>
+              <div class="skills-flex">
+                <span class="skill-tag">React.js</span>
+                <span class="skill-tag">CSS Grid/Flexbox</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Figma</span>
+              </div>
+            </div>
+            <div class="details-col">
+              <h4>Perks & Compensation</h4>
+              <ul class="details-list">
+                <li>₹15,000 / month stipend</li>
+                <li>Certificate of Completion & LOR</li>
+                <li>Remote-first working hours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="internship-card" style="--card-accent: var(--blue-color); --card-accent-rgb: var(--blue-rgb);"
+        data-id="2" data-deadline="2026-07-15" data-active="8">
+        <div class="card-badge badge-blue">Design</div>
+
+        <div class="card-main-content">
+          <div class="card-header">
+            <div class="company-logo logo-blue" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" />
+                <ellipse cx="12" cy="12" rx="9" ry="3.2" fill="none" stroke="currentColor"
+                  transform="rotate(-30 12 12)" />
+                <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+              </svg>
+            </div>
+            <div class="company-info">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="company-name">Orbitly Studio</span>
+                <div class="live-indicator">
+                  <span class="live-dot"></span>
+                  <span class="live-text">8 active</span>
+                </div>
+              </div>
+              <h3 class="role-title">UI/UX Design Intern</h3>
+              <p class="role-description">Create high-fidelity wireframes, interactive user flows, and aesthetic prototypes for next-gen mobile apps.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Eligibility</span>
+                <span class="info-value">Any stream, portfolio required</span>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Deadline</span>
+                <span class="info-value">July 15, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="apply-btn btn-blue" onclick="openApplyModal('Orbitly Studio', 'UI/UX Design Intern', '2')">
+              Apply Now
+            </button>
+          </div>
+        </div>
+
+        <div class="card-details-expanded">
+          <div class="details-grid">
+            <div class="details-col">
+              <h4>Key Responsibilities</h4>
+              <ul class="details-list">
+                <li>Design intuitive, premium interfaces for iOS and Android mobile apps.</li>
+                <li>Conduct user research, define user personas, and map out workflows.</li>
+                <li>Iterate rapidly on interactive prototypes using Figma and Principle.</li>
+              </ul>
+            </div>
+            <div class="details-col">
+              <h4>Required Skills</h4>
+              <div class="skills-flex">
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">Prototyping</span>
+                <span class="skill-tag">User Research</span>
+                <span class="skill-tag">UI Design</span>
+              </div>
+            </div>
+            <div class="details-col">
+              <h4>Perks & Compensation</h4>
+              <ul class="details-list">
+                <li>₹12,000 / month stipend</li>
+                <li>Direct mentorship from Senior UI/UX Lead</li>
+                <li>Hybrid work setting</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="internship-card" style="--card-accent: var(--orange-color); --card-accent-rgb: var(--orange-rgb);"
+        data-id="3" data-deadline="2026-07-05" data-active="23">
+        <div class="card-badge badge-orange">Dev</div>
+
+        <div class="card-main-content">
+          <div class="card-header">
+            <div class="company-logo logo-orange" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="none" stroke="currentColor" />
+                <path d="M2 17l10 5 10-5" fill="none" stroke="currentColor" />
+                <path d="M2 12l10 5 10-5" fill="none" stroke="currentColor" />
+              </svg>
+            </div>
+            <div class="company-info">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="company-name">Stackvibe Labs</span>
+                <div class="live-indicator">
+                  <span class="live-dot"></span>
+                  <span class="live-text">23 active</span>
+                </div>
+              </div>
+              <h3 class="role-title">Full Stack Developer Intern</h3>
+              <p class="role-description">Assist in developing and scaling API services, database structures, and backend routing systems.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Eligibility</span>
+                <span class="info-value">B.Tech final year students</span>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Deadline</span>
+                <span class="info-value">July 05, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="apply-btn btn-orange" onclick="openApplyModal('Stackvibe Labs', 'Full Stack Developer Intern', '3')">
+              Apply Now
+            </button>
+          </div>
+        </div>
+
+        <div class="card-details-expanded">
+          <div class="details-grid">
+            <div class="details-col">
+              <h4>Key Responsibilities</h4>
+              <ul class="details-list">
+                <li>Develop and maintain RESTful API endpoints using Node.js and Express.</li>
+                <li>Build scalable data models in MongoDB and write database migrations.</li>
+                <li>Implement unit testing and integrate APIs with the frontend interface.</li>
+              </ul>
+            </div>
+            <div class="details-col">
+              <h4>Required Skills</h4>
+              <div class="skills-flex">
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Express</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">REST APIs</span>
+              </div>
+            </div>
+            <div class="details-col">
+              <h4>Perks & Compensation</h4>
+              <ul class="details-list">
+                <li>₹18,000 / month stipend</li>
+                <li>PPO offer based on performance</li>
+                <li>Free access to technical training</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="internship-card" style="--card-accent: var(--purple-color); --card-accent-rgb: var(--purple-rgb);"
+        data-id="4" data-deadline="2026-06-25" data-active="6">
+        <div class="card-badge badge-purple">Tech</div>
+
+        <div class="card-main-content">
+          <div class="card-header">
+            <div class="company-logo logo-purple" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div class="company-info">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="company-name">Aether Security</span>
+                <div class="live-indicator">
+                  <span class="live-dot"></span>
+                  <span class="live-text">6 active</span>
+                </div>
+              </div>
+              <h3 class="role-title">Cyber Security Intern</h3>
+              <p class="role-description">Assist in vulnerability scanning, penetration testing, and monitoring system event logs for anomalies.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Eligibility</span>
+                <span class="info-value">CS/IT with networks basics</span>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Deadline</span>
+                <span class="info-value">June 25, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="apply-btn btn-purple" onclick="openApplyModal('Aether Security', 'Cyber Security Intern', '4')">
+              Apply Now
+            </button>
+          </div>
+        </div>
+
+        <div class="card-details-expanded">
+          <div class="details-grid">
+            <div class="details-col">
+              <h4>Key Responsibilities</h4>
+              <ul class="details-list">
+                <li>Perform automated scanning and manual auditing of cloud networks.</li>
+                <li>Document security findings, log anomalies, and draft risk assessments.</li>
+                <li>Set up intrusion detection policies and secure client firewalls.</li>
+              </ul>
+            </div>
+            <div class="details-col">
+              <h4>Required Skills</h4>
+              <div class="skills-flex">
+                <span class="skill-tag">Wireshark</span>
+                <span class="skill-tag">Linux</span>
+                <span class="skill-tag">Nmap</span>
+                <span class="skill-tag">Pentesting</span>
+              </div>
+            </div>
+            <div class="details-col">
+              <h4>Perks & Compensation</h4>
+              <ul class="details-list">
+                <li>₹20,000 / month stipend</li>
+                <li>Weekly hands-on labs</li>
+                <li>100% remote working hours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="internship-card" style="--card-accent: var(--pink-color); --card-accent-rgb: var(--pink-rgb);"
+        data-id="5" data-deadline="2026-07-20" data-active="11">
+        <div class="card-badge badge-pink">Design</div>
+
+        <div class="card-main-content">
+          <div class="card-header">
+            <div class="company-logo logo-pink" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </div>
+            <div class="company-info">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="company-name">Luminary Media</span>
+                <div class="live-indicator">
+                  <span class="live-dot"></span>
+                  <span class="live-text">11 active</span>
+                </div>
+              </div>
+              <h3 class="role-title">Creative Content Intern</h3>
+              <p class="role-description">Design marketing templates, write copy, and edit engaging videos for social platforms.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Eligibility</span>
+                <span class="info-value">Excellent writing, portfolio required</span>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Deadline</span>
+                <span class="info-value">July 20, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="apply-btn btn-pink" onclick="openApplyModal('Luminary Media', 'Creative Content Intern', '5')">
+              Apply Now
+            </button>
+          </div>
+        </div>
+
+        <div class="card-details-expanded">
+          <div class="details-grid">
+            <div class="details-col">
+              <h4>Key Responsibilities</h4>
+              <ul class="details-list">
+                <li>Craft high-quality written copy for tech blogs and social newsletters.</li>
+                <li>Create digital assets and graphic layouts using Illustrator/Photoshop.</li>
+                <li>Script, film, and edit engaging videos for digital media.</li>
+              </ul>
+            </div>
+            <div class="details-col">
+              <h4>Required Skills</h4>
+              <div class="skills-flex">
+                <span class="skill-tag">Copywriting</span>
+                <span class="skill-tag">Premiere Pro</span>
+                <span class="skill-tag">Illustrator</span>
+                <span class="skill-tag">Analytics</span>
+              </div>
+            </div>
+            <div class="details-col">
+              <h4>Perks & Compensation</h4>
+              <ul class="details-list">
+                <li>₹10,000 / month stipend</li>
+                <li>Flexible schedules & hours</li>
+                <li>Creative tool subscriptions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="internship-card" style="--card-accent: var(--teal-color); --card-accent-rgb: var(--teal-rgb);"
+        data-id="6" data-deadline="2026-07-10" data-active="19">
+        <div class="card-badge badge-teal">Dev</div>
+
+        <div class="card-main-content">
+          <div class="card-header">
+            <div class="company-logo logo-teal" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </div>
+            <div class="company-info">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="company-name">Novus Robotics</span>
+                <div class="live-indicator">
+                  <span class="live-dot"></span>
+                  <span class="live-text">19 active</span>
+                </div>
+              </div>
+              <h3 class="role-title">Embedded Systems Intern</h3>
+              <p class="role-description">Program microcontrollers, interface hardware sensors, and run circuit tests for smart robotic arms.</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Eligibility</span>
+                <span class="info-value">ECE/EE/CS students, C/C++ knowledge</span>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <div class="info-content">
+                <span class="info-label">Deadline</span>
+                <span class="info-value">July 10, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="apply-btn btn-teal" onclick="openApplyModal('Novus Robotics', 'Embedded Systems Intern', '6')">
+              Apply Now
+            </button>
+          </div>
+        </div>
+
+        <div class="card-details-expanded">
+          <div class="details-grid">
+            <div class="details-col">
+              <h4>Key Responsibilities</h4>
+              <ul class="details-list">
+                <li>Program microcontrollers (ESP32/Arduino) in C/C++ environments.</li>
+                <li>Interface sensors, motor drivers, and actuators with microcontrollers.</li>
+                <li>Debug circuit assemblies using digital scopes and analyzers.</li>
+              </ul>
+            </div>
+            <div class="details-col">
+              <h4>Required Skills</h4>
+              <div class="skills-flex">
+                <span class="skill-tag">C/C++</span>
+                <span class="skill-tag">ESP32</span>
+                <span class="skill-tag">Arduino</span>
+                <span class="skill-tag">PCB Debugging</span>
+              </div>
+            </div>
+            <div class="details-col">
+              <h4>Perks & Compensation</h4>
+              <ul class="details-list">
+                <li>₹16,000 / month stipend</li>
+                <li>Hands-on testing hardware labs</li>
+                <li>Free lunch in office cafeteria</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="apply-modal" onclick="handleOverlayClick(event)" aria-modal="true" role="dialog">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeApplyModal()" aria-label="Close form">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      <div id="modal-form-container">
+        <h3 class="modal-title">Apply to <span id="modal-company-name"></span></h3>
+        <p class="modal-subtitle">Role: <span id="modal-role-title"></span></p>
+
+        <form id="application-form" onsubmit="handleFormSubmit(event)">
+          <div class="input-group">
+            <label class="input-label" for="applicant-name">Full Name</label>
+            <input class="input-field" type="text" id="applicant-name" required placeholder="John Doe">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="applicant-email">Email Address</label>
+            <input class="input-field" type="email" id="applicant-email" required placeholder="john.doe@example.com">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="applicant-resume">Resume/Portfolio Link</label>
+            <input class="input-field" type="url" id="applicant-resume" required
+              placeholder="https://myportfolio.com or GDrive link">
+          </div>
+
+          <button type="submit" class="modal-submit-btn" id="modal-submit-btn">
+            <span>Submit Application</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="modal-success-container" class="hidden">
+        <div class="success-message">
+          <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+          <h3 class="success-title">Application Sent!</h3>
+          <p class="success-desc">
+            Thank you, <span id="success-name"></span>. Your application for the <strong><span
+                id="success-role"></span></strong> internship at <strong><span id="success-company"></span></strong> has
+            been submitted.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>© 2026 AURA Internship Portal. Crafted for the next generation of builders.</p>
+    </div>
+  </footer>
+
+  <div class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <a href="index.html" class="mobile-nav-item" id="mobile-nav-home">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="#listings-section" class="mobile-nav-item active" id="mobile-nav-jobs">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </svg>
+      <span>Internships</span>
+    </a>
+    <button class="mobile-nav-item" id="mobile-theme-toggle" aria-label="Toggle Theme">
+      <svg class="sun-icon-mob" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5" />
+        <line x1="12" y1="1" x2="12" y2="3" />
+        <line x1="12" y1="21" x2="12" y2="23" />
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+        <line x1="1" y1="12" x2="3" y2="12" />
+        <line x1="21" y1="12" x2="23" y2="12" />
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+      </svg>
+      <svg class="moon-icon-mob hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+      <span>Theme</span>
+    </button>
+  </div>
+
+    <script defer src="scripts/internships.js"></script>
+</body>
+
+</html>
