@@ -1546,8 +1546,11 @@ textarea.input-field {
 
   /* Tap state — mirrors desktop hover */
   .internship-card.tapped {
-    border-color: rgba(var(--card-accent-rgb), 0.35);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    transform: translateY(-5px) scale(1.01);
+    border-color: rgba(var(--card-accent-rgb), 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22),
+                0 0 0 1px rgba(var(--card-accent-rgb), 0.12),
+                0 0 32px rgba(var(--card-accent-rgb), 0.08);
     padding-bottom: 2.2rem;
   }
 
