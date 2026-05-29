@@ -30,27 +30,45 @@ window.addEventListener('scroll', () => {
 const themeBtn = document.getElementById('theme-toggle-btn');
 const themeLabel = document.getElementById('theme-text-label');
 
-document.addEventListener('DOMContentLoaded', () => {
-  let theme = 'light';
-  try {
-    theme = localStorage.getItem('theme') || 'light';
-  } catch (e) {}
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
   if (themeLabel) {
     themeLabel.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
   }
+  
+  const mobSun = document.querySelector('.sun-icon-mob');
+  const mobMoon = document.querySelector('.moon-icon-mob');
+  if (theme === 'dark') {
+    if (mobSun) mobSun.classList.add('hidden');
+    if (mobMoon) mobMoon.classList.remove('hidden');
+  } else {
+    if (mobSun) mobSun.classList.remove('hidden');
+    if (mobMoon) mobMoon.classList.add('hidden');
+  }
+  
+  try {
+    localStorage.setItem('theme', theme);
+  } catch (e) {}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  let theme = 'light';
+  try {
+    theme = localStorage.getItem('theme');
+    if (!theme) {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+  } catch (e) {}
+  applyTheme(theme);
 });
 
-themeBtn.addEventListener('click', () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', targetTheme);
-  try {
-    localStorage.setItem('theme', targetTheme);
-  } catch (e) {}
-  if (themeLabel) {
-    themeLabel.textContent = targetTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
-  }
-});
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(targetTheme);
+  });
+}
 
 const observer = new IntersectionObserver((entries, obs) => {
   entries.forEach(entry => {
@@ -182,44 +200,73 @@ window.addEventListener('scroll', () => {
   if (mobJobs) mobJobs.classList.remove('active');
 }, { passive: true });
 
-document.addEventListener('DOMContentLoaded', () => {
-  let theme = 'light';
-  try {
-    theme = document.documentElement.getAttribute('data-theme') || 'light';
-  } catch (e) {}
-  if (theme === 'dark') {
-    if (mobSun) mobSun.classList.add('hidden');
-    if (mobMoon) mobMoon.classList.remove('hidden');
-  } else {
-    if (mobSun) mobSun.classList.remove('hidden');
-    if (mobMoon) mobMoon.classList.add('hidden');
+if (mobTheme) {
+  mobTheme.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(targetTheme);
+  });
+}
+
+// Intercept empty links for Feature Coming Soon toast
+document.addEventListener('click', (e) => {
+  const anchor = e.target.closest('a');
+  if (anchor && (anchor.getAttribute('href') === '#' || anchor.getAttribute('href') === 'javascript:void(0)')) {
+    e.preventDefault();
+    showToast('Feature Coming Soon');
   }
 });
 
-if (mobTheme) {
-  mobTheme.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', targetTheme);
-    try {
-      localStorage.setItem('theme', targetTheme);
-    } catch (e) {}
-    const themeLabel = document.getElementById('theme-text-label');
-    if (themeLabel) {
-      themeLabel.textContent = targetTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
-    }
-    const sunIcon = document.querySelector('.sun-icon');
-    const moonIcon = document.querySelector('.moon-icon');
-    if (targetTheme === 'dark') {
-      if (sunIcon) sunIcon.classList.add('hidden');
-      if (moonIcon) moonIcon.classList.remove('hidden');
-      if (mobSun) mobSun.classList.add('hidden');
-      if (mobMoon) mobMoon.classList.remove('hidden');
-    } else {
-      if (sunIcon) sunIcon.classList.remove('hidden');
-      if (moonIcon) moonIcon.classList.add('hidden');
-      if (mobSun) mobSun.classList.remove('hidden');
-      if (mobMoon) mobMoon.classList.add('hidden');
-    }
+function showToast(message) {
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `
+    <div class="toast-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+    </div>
+    <span>${message}</span>
+  `;
+
+  container.appendChild(toast);
+  toast.offsetHeight; // trigger reflow
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.addEventListener('transitionend', () => {
+      toast.remove();
+      if (container.children.length === 0) {
+        container.remove();
+      }
+    });
+  }, 3200);
+}
+
+// Hamburger Menu Toggle
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburgerBtn && navLinks) {
+  hamburgerBtn.addEventListener('click', () => {
+    hamburgerBtn.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburgerBtn.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
   });
 }

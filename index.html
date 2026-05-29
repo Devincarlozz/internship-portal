@@ -12,10 +12,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
-
     let savedTheme = 'light';
     try {
-      savedTheme = localStorage.getItem('theme') || 'light';
+      savedTheme = localStorage.getItem('theme');
+      if (!savedTheme) {
+        savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
     } catch (e) {}
     document.documentElement.setAttribute('data-theme', savedTheme);
   </script>
@@ -98,6 +100,12 @@
           </div>
           <span class="theme-text" id="theme-text-label">Dark Mode</span>
         </button>
+        <!-- Hamburger Menu Button -->
+        <button class="hamburger-menu" id="hamburger-btn" aria-label="Toggle Navigation Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
       </div>
     </div>
   </nav>
@@ -113,7 +121,7 @@
 
       <div class="hero-ctas">
         <a href="internships.html" class="cta-solid">Explore Internships</a>
-        <a href="internships.html" class="cta-glass">Learn More</a>
+        <a href="#how-it-works" class="cta-glass">Learn More</a>
       </div>
     </div>
 
