@@ -755,12 +755,15 @@ body.fast-scrolling .internship-card {
   margin-top: 0;
 }
 
-body:not(.is-scrolling) .internship-card:hover .card-details-expanded {
-  max-height: 380px;
-  opacity: 1;
-  margin-top: 1.8rem;
-  padding-top: 1.8rem;
-  border-top: 1px dashed var(--card-border);
+/* Desktop-only hover expand — true pointer devices only */
+@media (hover: hover) {
+  body:not(.is-scrolling) .internship-card:hover .card-details-expanded {
+    max-height: 380px;
+    opacity: 1;
+    margin-top: 1.8rem;
+    padding-top: 1.8rem;
+    border-top: 1px dashed var(--card-border);
+  }
 }
 
 .details-grid {
@@ -1534,44 +1537,33 @@ textarea.input-field {
 }
 
 /* ── Mobile tap-to-expand ─────────────────────────────────── */
-@media (max-width: 768px) {
-  /* Kill hover expand on touch — hover fires randomly on mobile */
-  body:not(.is-scrolling) .internship-card:hover,
-  body:not(.is-scrolling)[data-theme="light"] .internship-card:hover {
-    transform: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-color: var(--card-border);
-    padding-bottom: 2.2rem;
-  }
+/* .tapped class added/removed by JS on click — works on all screen sizes */
 
-  body:not(.is-scrolling) .internship-card:hover .card-details-expanded {
-    max-height: 0;
-    opacity: 0;
-    margin-top: 0;
-    padding-top: 0;
-    border-top-color: transparent;
-  }
+/* Tapped card: full hover visual on any screen */
+.internship-card.tapped {
+  border-color: rgba(var(--card-accent-rgb), 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22),
+              0 0 0 1px rgba(var(--card-accent-rgb), 0.12),
+              0 0 32px rgba(var(--card-accent-rgb), 0.08);
+  padding-bottom: 2.2rem;
+}
 
-  /* Tap state — mirrors desktop hover */
+[data-theme="light"] .internship-card.tapped {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
+}
+
+.internship-card.tapped .card-details-expanded {
+  max-height: 800px;
+  opacity: 1;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--card-border);
+}
+
+/* On true touch screens: add a subtle lift too */
+@media (hover: none) {
   .internship-card.tapped {
-    transform: translateY(-5px) scale(1.01);
-    border-color: rgba(var(--card-accent-rgb), 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22),
-                0 0 0 1px rgba(var(--card-accent-rgb), 0.12),
-                0 0 32px rgba(var(--card-accent-rgb), 0.08);
-    padding-bottom: 2.2rem;
-  }
-
-  [data-theme="light"] .internship-card.tapped {
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
-  }
-
-  .internship-card.tapped .card-details-expanded {
-    max-height: 600px;
-    opacity: 1;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px dashed var(--card-border);
+    transform: translateY(-4px) scale(1.01);
   }
 }
 

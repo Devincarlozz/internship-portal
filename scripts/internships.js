@@ -88,7 +88,6 @@ const cardsObserver = new IntersectionObserver((entries, obs) => {
 });
 
 function setupCards() {
-  const isMobile = () => window.innerWidth <= 768;
   let tappedCard = null;
 
   function collapseTapped() {
@@ -98,31 +97,27 @@ function setupCards() {
     }
   }
 
-  // Card stays open until tapped again — no outside-tap collapse
-
   document.querySelectorAll('.internship-card').forEach((card, index) => {
     card.style.setProperty('--delay', index);
     cardsObserver.observe(card);
     card.onmousemove = null;
 
-    // Desktop: spotlight cursor effect
+    // Spotlight cursor effect (desktop)
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
       card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
     });
 
-    // Mobile: tap to expand/collapse
+    // Click/tap to expand — works on both mobile and desktop
+    // On desktop: hover CSS takes priority visually; tap is a bonus toggle
+    // On mobile: this is the primary expand mechanism
     card.addEventListener('click', (e) => {
-      if (!isMobile()) return;
-      // Let apply button work normally
       if (e.target.closest('.apply-btn')) return;
 
       if (card.classList.contains('tapped')) {
-        // Tap same card again — collapse
         collapseTapped();
       } else {
-        // Collapse any open card, then open this one
         collapseTapped();
         card.classList.add('tapped');
         tappedCard = card;
