@@ -1525,6 +1525,45 @@ textarea.input-field {
   }
 }
 
+/* ── Mobile tap-to-expand ─────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Kill hover expand on touch — hover fires randomly on mobile */
+  body:not(.is-scrolling) .internship-card:hover,
+  body:not(.is-scrolling)[data-theme="light"] .internship-card:hover {
+    transform: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--card-border);
+    padding-bottom: 2.2rem;
+  }
+
+  body:not(.is-scrolling) .internship-card:hover .card-details-expanded {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    padding-top: 0;
+    border-top-color: transparent;
+  }
+
+  /* Tap state — mirrors desktop hover */
+  .internship-card.tapped {
+    border-color: rgba(var(--card-accent-rgb), 0.35);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    padding-bottom: 2.2rem;
+  }
+
+  [data-theme="light"] .internship-card.tapped {
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
+  }
+
+  .internship-card.tapped .card-details-expanded {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--card-border);
+  }
+}
+
 @media (max-width: 768px) {
   .nav-container {
     display: flex;

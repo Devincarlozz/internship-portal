@@ -88,14 +88,50 @@ const cardsObserver = new IntersectionObserver((entries, obs) => {
 });
 
 function setupCards() {
+  const isMobile = () => window.innerWidth <= 768;
+  let tappedCard = null;
+
+  function collapseTapped() {
+    if (tappedCard) {
+      tappedCard.classList.remove('tapped');
+      tappedCard = null;
+    }
+  }
+
+  // Close tapped card when touching outside any card
+  document.addEventListener('touchstart', (e) => {
+    if (isMobile() && tappedCard && !tappedCard.contains(e.target)) {
+      collapseTapped();
+    }
+  }, { passive: true });
+
   document.querySelectorAll('.internship-card').forEach((card, index) => {
     card.style.setProperty('--delay', index);
     cardsObserver.observe(card);
     card.onmousemove = null;
+
+    // Desktop: spotlight cursor effect
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
       card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    });
+
+    // Mobile: tap to expand/collapse
+    card.addEventListener('click', (e) => {
+      if (!isMobile()) return;
+      // Let apply button work normally
+      if (e.target.closest('.apply-btn')) return;
+
+      if (card.classList.contains('tapped')) {
+        // Tap same card again — collapse
+        collapseTapped();
+      } else {
+        // Collapse any open card, then open this one
+        collapseTapped();
+        card.classList.add('tapped');
+        tappedCard = card;
+      }
     });
   });
 }
