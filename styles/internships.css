@@ -89,8 +89,13 @@
   padding: 0;
 }
 
+:root {
+  --navbar-h: 70px;
+}
+
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -490,7 +495,7 @@ body,
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 9rem 2rem 2rem 2rem;
+  padding: calc(var(--navbar-h) + 5rem) 2rem 2rem 2rem;
   box-sizing: border-box;
   position: relative;
 }
@@ -1100,6 +1105,9 @@ body:not(.is-scrolling) .internship-card:hover::after {
   border: 1px solid var(--modal-border);
   width: 90%;
   max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 28px;
   padding: 2.2rem;
   position: relative;
@@ -1709,3 +1717,75 @@ textarea.input-field {
     justify-content: center;
   }
 }
+
+/* ── Mobile-specific overrides ───────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Navbar: disable pill effect — keep full-width bar on mobile */
+  .navbar.nav-scrolled {
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    border-color: var(--navbar-border);
+    box-shadow: none;
+  }
+
+  /* Hero: tighter padding using navbar height variable */
+  .internships-header-section {
+    padding: calc(var(--navbar-h) + 2.5rem) 1.2rem 2rem;
+    min-height: 38vh;
+  }
+
+  /* Listings section: flush horizontal padding */
+  .listings-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Cards grid: single column */
+  .listings-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Filter/sort bar: fully wrapping */
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .filter-tabs {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .sort-wrapper {
+    width: 100%;
+  }
+
+  .sort-wrapper select {
+    width: 100%;
+  }
+
+  /* Modal: pinned to viewport, scrollable */
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 24px 24px 0 0;
+    padding: 1.8rem 1.2rem;
+  }
+
+  /* Expanded card details: taller cap for long content */
+  .internship-card.tapped .card-details-expanded {
+    max-height: 800px;
+  }
+}
+
