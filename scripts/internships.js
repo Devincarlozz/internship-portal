@@ -98,12 +98,7 @@ function setupCards() {
     }
   }
 
-  // Close tapped card when touching outside any card
-  document.addEventListener('touchstart', (e) => {
-    if (isMobile() && tappedCard && !tappedCard.contains(e.target)) {
-      collapseTapped();
-    }
-  }, { passive: true });
+  // Card stays open until tapped again — no outside-tap collapse
 
   document.querySelectorAll('.internship-card').forEach((card, index) => {
     card.style.setProperty('--delay', index);
@@ -321,12 +316,15 @@ let tickPending = false;
 let scrollStopTimeout;
 
 window.addEventListener('scroll', () => {
-  document.body.classList.add('is-scrolling');
-  clearTimeout(scrollStopTimeout);
-  scrollStopTimeout = setTimeout(() => {
-    document.body.classList.remove('is-scrolling');
-    document.body.classList.remove('fast-scrolling');
-  }, 150);
+  // is-scrolling only needed on desktop to suppress hover during scroll
+  if (window.innerWidth > 768) {
+    document.body.classList.add('is-scrolling');
+    clearTimeout(scrollStopTimeout);
+    scrollStopTimeout = setTimeout(() => {
+      document.body.classList.remove('is-scrolling');
+      document.body.classList.remove('fast-scrolling');
+    }, 150);
+  }
 
   if (!tickPending) {
     tickPending = true;
@@ -351,10 +349,16 @@ window.addEventListener('scroll', () => {
 function updateStack(velocity) {
   const clamp = Math.max(Math.min(velocity, 25), -25);
   const abs = Math.abs(clamp);
-  
-  if (abs > 1.2) {
-    document.body.classList.add('fast-scrolling');
-  } else if (abs < 0.3) {
+
+  // fast-scrolling blur effect only on desktop — mobile scroll
+  // fires rapid deltas that cause visible flicker on entering tiles
+  if (window.innerWidth > 768) {
+    if (abs > 1.2) {
+      document.body.classList.add('fast-scrolling');
+    } else if (abs < 0.3) {
+      document.body.classList.remove('fast-scrolling');
+    }
+  } else {
     document.body.classList.remove('fast-scrolling');
   }
 
