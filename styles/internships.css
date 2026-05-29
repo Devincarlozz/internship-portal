@@ -757,7 +757,7 @@ body.fast-scrolling .internship-card {
 
 /* Desktop-only hover expand — true pointer devices only */
 @media (hover: hover) {
-  body:not(.is-scrolling) .internship-card:hover .card-details-expanded {
+  body:not(.fast-scrolling) .internship-card:hover .card-details-expanded {
     max-height: 380px;
     opacity: 1;
     margin-top: 1.8rem;
@@ -889,7 +889,7 @@ body.fast-scrolling .internship-card {
   z-index: 1;
 }
 
-body:not(.is-scrolling) .internship-card:hover::after {
+body:not(.fast-scrolling) .internship-card:hover::after {
   opacity: 1;
 }
 
@@ -1516,18 +1516,19 @@ textarea.input-field {
     right: 2.5rem;
   }
 
-  body:not(.is-scrolling) .internship-card:hover {
+  body:not(.fast-scrolling) .internship-card:hover {
     transform: translateY(-6px) scale(1.01);
     border-color: rgba(var(--card-accent-rgb), 0.35);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     padding-bottom: 2.2rem;
+    z-index: 15;
   }
 
-  body:not(.is-scrolling)[data-theme="light"] .internship-card:hover {
+  body:not(.fast-scrolling)[data-theme="light"] .internship-card:hover {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
   }
 
-  body:not(.is-scrolling) .internship-card:hover .card-details-expanded {
+  body:not(.fast-scrolling) .internship-card:hover .card-details-expanded {
     max-height: 380px;
     opacity: 1;
     margin-top: 1.8rem;
@@ -1546,6 +1547,7 @@ textarea.input-field {
               0 0 0 1px rgba(var(--card-accent-rgb), 0.12),
               0 0 32px rgba(var(--card-accent-rgb), 0.08);
   padding-bottom: 2.2rem;
+  z-index: 15;
 }
 
 [data-theme="light"] .internship-card.tapped {
@@ -1741,11 +1743,12 @@ textarea.input-field {
     gap: 1rem;
   }
 
-  /* Filter/sort bar: fully wrapping */
+  /* Filter/sort bar: fully wrapping and optimized padding for mobile screens */
   .filter-container {
     flex-direction: column;
     align-items: stretch;
     gap: 0.85rem;
+    padding: 1.2rem 1rem;
   }
 
   .filter-tabs {
@@ -1761,18 +1764,19 @@ textarea.input-field {
     width: 100%;
   }
 
-  /* Modal: pinned to viewport, scrollable */
+  /* Modal: centered on viewport on mobile view */
   .modal-overlay {
-    align-items: flex-end;
-    padding: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
   }
 
   .modal-content {
-    width: 100%;
-    max-width: 100%;
-    max-height: 92vh;
-    border-radius: 24px 24px 0 0;
-    padding: 1.8rem 1.2rem;
+    width: 95%;
+    max-width: 500px;
+    max-height: 88vh;
+    border-radius: 28px;
+    padding: 2.2rem 1.6rem;
   }
 
   /* Expanded card details: taller cap for long content */

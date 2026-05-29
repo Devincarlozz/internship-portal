@@ -217,16 +217,27 @@ let activeCompany = '';
 let activeRole = '';
 
 function openApplyModal(company, role, id) {
-  activeCompany = company;
-  activeRole = role;
-  if (modalCompany) modalCompany.textContent = company;
-  if (modalRole) modalRole.textContent = role;
+  let compName = company;
+  let roleTitle = role;
+
+  const card = document.querySelector(`.internship-card[data-id="${id}"]`);
+  if (card) {
+    const compEl = card.querySelector('.company-name');
+    const roleEl = card.querySelector('.role-title');
+    if (compEl) compName = compEl.textContent.trim();
+    if (roleEl) roleTitle = roleEl.textContent.trim();
+  }
+
+  activeCompany = compName;
+  activeRole = roleTitle;
+
+  if (modalCompany) modalCompany.textContent = compName;
+  if (modalRole) modalRole.textContent = roleTitle;
 
   if (formBox) formBox.classList.remove('hidden');
   if (successBox) successBox.classList.add('hidden');
   if (form) form.reset();
 
-  const card = document.querySelector(`.internship-card[data-id="${id}"]`);
   if (card && modal) {
     const color = getComputedStyle(card).getPropertyValue('--card-accent').trim();
     const rgb = getComputedStyle(card).getPropertyValue('--card-accent-rgb').trim();
@@ -268,6 +279,11 @@ function handleFormSubmit(e) {
   const fBox = document.getElementById('modal-form-container');
   const sBox = document.getElementById('modal-success-container');
 
+  const mCompany = document.getElementById('modal-company-name');
+  const mRole = document.getElementById('modal-role-title');
+  const compName = mCompany ? mCompany.textContent.trim() : activeCompany;
+  const roleTitle = mRole ? mRole.textContent.trim() : activeRole;
+
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
@@ -287,8 +303,8 @@ function handleFormSubmit(e) {
 
   setTimeout(() => {
     if (sName) sName.textContent = name;
-    if (sRole) sRole.textContent = activeRole;
-    if (sCompany) sCompany.textContent = activeCompany;
+    if (sRole) sRole.textContent = roleTitle;
+    if (sCompany) sCompany.textContent = compName;
 
     if (fBox) fBox.classList.add('hidden');
     if (sBox) sBox.classList.remove('hidden');
