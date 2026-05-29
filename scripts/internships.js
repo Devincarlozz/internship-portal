@@ -317,6 +317,9 @@ let tickPending = false;
 let scrollStopTimeout;
 
 window.addEventListener('scroll', () => {
+  const currentY = window.scrollY;
+  if (currentY === lastScrollY) return;
+
   // is-scrolling only needed on desktop to suppress hover during scroll
   if (window.innerWidth > 768) {
     document.body.classList.add('is-scrolling');
@@ -414,10 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function updateSubmitState() {
-  const appForm = document.getElementById('application-form');
   const submitBtn = document.getElementById('modal-submit-btn');
-  if (appForm && submitBtn) {
-    submitBtn.disabled = !appForm.checkValidity();
+  if (submitBtn) {
+    submitBtn.disabled = false;
   }
 }
 window.updateSubmitState = updateSubmitState;

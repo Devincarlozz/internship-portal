@@ -1087,7 +1087,7 @@ body:not(.is-scrolling) .internship-card:hover::after {
   background: var(--overlay-bg);
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
-  z-index: 1000;
+  z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
