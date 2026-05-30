@@ -1357,7 +1357,7 @@ textarea.input-field {
   background: var(--navbar-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 2rem 1.5rem;
+  padding: 3rem 1.5rem 3.5rem 1.5rem;
   position: relative;
   z-index: 10;
 }
@@ -1365,13 +1365,117 @@ textarea.input-field {
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.footer-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 2rem;
+}
+
+[data-theme="light"] .footer-top {
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: 0.05em;
+}
+
+.footer-tagline {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.footer-creator {
+  font-size: 0.95rem;
+  color: var(--text-muted);
   text-align: center;
 }
 
-.site-footer p {
+.creator-name {
+  color: var(--text-color);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-color), #ff6b00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--text-muted);
+  text-decoration: none;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
+  padding: 0.55rem 0.95rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .footer-link-item {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.footer-link-item:hover {
+  color: var(--text-color);
+  background: rgba(var(--accent-rgb), 0.08);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  transform: translateY(-2px);
+}
+
+.footer-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.footer-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-bottom p {
+  margin: 0;
 }
 
 .mobile-bottom-nav {
